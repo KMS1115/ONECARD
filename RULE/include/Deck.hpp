@@ -13,9 +13,9 @@
 
 class Deck
 {
-private:
-        std::vector<Card> cards;                                             // 덱에 있는 카드들
 public:
+        std::vector<Card> cards;                                             // 덱에 있는 카드들
+
         Deck();
 
         void InitialDeck();                                                  // 게임에 필요한 카드를 생성하고 덱에 추가하는 함수

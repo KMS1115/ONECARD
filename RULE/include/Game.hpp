@@ -13,13 +13,18 @@
 class Game
 {
 private:
-      int VictoryCondition;            // 승리 조건 -> 상대방 카드가 15장 이상이면 승리
+      int VictoryCondition;            // 승리 조건 -> 상대방 카드가 15장 이상이면 승리 or 상대방이 조커 두장 갖게 되는 상황
       int Turn;                        // 턴 수
       Deck deck;
       Player* currentplayer;           // 현재 플레이어가 누군지 알려줌
+      Player* opponent;                // 상대 플레이어
       Card topcard;                    // 오픈 카드(제일 중요한 변수)
       std::vector<Card> deathzone;
+      Player player1;
+      Player player2;
 public:
+      Game();
+      Game(std::string name1, std::string name2);
       void StartGame();                // 게임 시작(플레이어에게 카드 나눠주고 만약 한 사람에게 조커 두 장이면 다시 나눠주기)
       void OpenCard();                 // 플레이어에게 나눠준 후 오픈 카드 한 장을 랜덤으로 오픈
       bool CheckWinCondition();        // 승리 조건을 만족하는지 검사하는 함수(항상 돌고 있어야 함 -> 쓰레드 파는 것도 괜찮아 보임)

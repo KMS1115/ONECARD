@@ -41,8 +41,8 @@ bool Card::isRightCard(Card& topcard)
 {
     if (this->Card_Emblem == topcard.Card_Emblem) return true;                                                        // 문양 같으면 낼 수 있다
     if (this->Card_Number == topcard.Card_Number) return true;                                                        // 숫자 같으면 낼 수 있다
-    if (this->Card_Emblem == JOKER && this->Card_Color == RED && topcard.Card_Color == RED) return true;        // 컬러 조커는 빨간색이면 낼 수 있다
-    if (this->Card_Emblem == JOKER && this->Card_Color == BLACK && topcard.Card_Color == BLACK) return true;    // 흑백 조커는 검은색이면 낼 수 있다
+    if (this->Card_Emblem == JOKER && this->Card_Color == RED && topcard.Card_Color == RED) return true;              // 컬러 조커는 빨간색이면 낼 수 있다
+    if (this->Card_Emblem == JOKER && this->Card_Color == BLACK && topcard.Card_Color == BLACK) return true;          // 흑백 조커는 검은색이면 낼 수 있다
 
     return false;
 }

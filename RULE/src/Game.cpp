@@ -3,3 +3,11 @@
 //
 
 #include "Game.hpp"
+
+Game::Game() {
+    player1 = Player();
+    player2 = Player();
+    currentplayer = nullptr;
+    opponent = nullptr;
+
+}
