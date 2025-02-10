@@ -18,6 +18,7 @@ private:
       Deck deck;
       Player* currentplayer;           // 현재 플레이어가 누군지 알려줌
       Card topcard;                    // 오픈 카드(제일 중요한 변수)
+      std::vector<Card> deathzone;
 public:
       void StartGame();                // 게임 시작(플레이어에게 카드 나눠주고 만약 한 사람에게 조커 두 장이면 다시 나눠주기)
       void OpenCard();                 // 플레이어에게 나눠준 후 오픈 카드 한 장을 랜덤으로 오픈
