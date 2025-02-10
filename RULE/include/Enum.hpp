@@ -1,0 +1,38 @@
+//
+// Created by pc on 2/10/25.
+//
+
+#ifndef ENUM_HPP
+#define ENUM_HPP
+
+enum CARD_NUMBER {
+    ACE,
+    TWO,
+    THREE,
+    FOUR,
+    FIVE,
+    SIX,
+    SEVEN,
+    EIGHT,
+    NINE,
+    TEN,
+    KING,
+    QUEEN,
+    JACK,
+    RED_JOKER,
+    BLACK_JOKER
+};
+
+enum CARD_EMBLEM {
+    SPADE,
+    DIAMOND,
+    CLOVER,
+    HEART
+};
+
+enum CARD_COLOR {
+    BLACK,
+    RED
+};
+
+#endif //ENUM_HPP

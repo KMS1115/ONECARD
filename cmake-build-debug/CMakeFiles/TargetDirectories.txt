@@ -1,0 +1,6 @@
+/home/pc/CLionProjects/GAME/cmake-build-debug/CMakeFiles/GAME.dir
+/home/pc/CLionProjects/GAME/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/pc/CLionProjects/GAME/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/pc/CLionProjects/GAME/cmake-build-debug/RULE/CMakeFiles/RULE.dir
+/home/pc/CLionProjects/GAME/cmake-build-debug/RULE/CMakeFiles/edit_cache.dir
+/home/pc/CLionProjects/GAME/cmake-build-debug/RULE/CMakeFiles/rebuild_cache.dir
