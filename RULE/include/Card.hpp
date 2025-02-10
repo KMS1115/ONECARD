@@ -8,17 +8,20 @@
 #include "Enum.hpp"
 
 class Card {
-private:
-      int Number;                 // 가지고 있는 카드 개수
-      int Penalty_Card;           // 공격 카드로 먹을 카드 개수
-      int Card_Emblem;            // 카드 문양
-      int Card_Number;            // 카드 숫자
-      int Card_Color;             // 카드 색깔
 public:
-      void Attack();              // 공격
-      void Defend();              // 방어(3번)
-      void Change();              // 문양 바꾸기(7번)
-      void Again();               // K 카드인 경우 한 번 더 내기 -> 쓰레드를 돌려서 항상 체크하거나 or if문으로 구현하기
+      int special;                                             // 특수 능력(아니면 0)
+      int Card_Emblem;                                         // 카드 문양
+      int Card_Number;                                         // 카드 숫자
+      int Card_Color;                                          // 카드 색깔
+
+      Card(int special, int emblem, int number, int color);    // 생성자
+
+      void Display();                                          // 카드 정보 출력
+      bool isSpecial();                                        // 특수 카드 여부 확인
+      bool isRightCard();                                      // 낼 수 있는 카드인지 확인
+      bool isChangeEmblem();                                   // 문양을 바꿀 수 있는 카드인지 확인
+      int ReturnAttackPower();                                 // 공격 카드인지 확인하고 공격 카드이면 몇 장 먹어야하는지 반환
+      bool isDefend();                                         // 방어 가능 여부 확인
 };
 
 #endif //CARD_HPP

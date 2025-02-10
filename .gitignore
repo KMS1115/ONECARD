@@ -1,0 +1,14 @@
+cmake-build-debug/
+cmake-build-release/
+CMAKELists.txt.user
+
+*.out
+*.o
+*.obj
+*.exe
+
+.idea/
+.vscode/
+
+*.log
+*.cache

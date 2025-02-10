@@ -1,2 +1,0 @@
-/usr/bin/ar qc libCARD.a CMakeFiles/CARD.dir/src/Card.cpp.o CMakeFiles/CARD.dir/src/Deck.cpp.o CMakeFiles/CARD.dir/src/Game.cpp.o CMakeFiles/CARD.dir/src/Player.cpp.o
-/usr/bin/ranlib libCARD.a
