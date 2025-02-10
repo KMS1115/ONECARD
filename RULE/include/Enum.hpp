@@ -5,7 +5,8 @@
 #ifndef ENUM_HPP
 #define ENUM_HPP
 
-enum CARD_NUMBER {
+enum CARD_NUMBER
+{
     ACE,
     TWO,
     THREE,
@@ -19,20 +20,30 @@ enum CARD_NUMBER {
     KING,
     QUEEN,
     JACK,
-    RED_JOKER,
-    BLACK_JOKER
+    JOKER
 };
 
-enum CARD_EMBLEM {
+enum CARD_EMBLEM
+{
     SPADE,
     DIAMOND,
     CLOVER,
     HEART
 };
 
-enum CARD_COLOR {
+enum CARD_COLOR
+{
     BLACK,
     RED
+};
+
+enum SPECIAL
+{
+    NONE,
+    ATTACK,
+    DEFEND,
+    CHANGE,
+    AGAIN,
 };
 
 #endif //ENUM_HPP

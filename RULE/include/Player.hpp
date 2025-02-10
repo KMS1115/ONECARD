@@ -12,7 +12,8 @@
 #include <string>
 
 
-class Player {
+class Player
+{
 private:
         std::string name;                               // 플레이어 이름
         std::vector<Card> hand;                         // 플레이어가 가진 카드 목록

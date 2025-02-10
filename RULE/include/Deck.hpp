@@ -11,7 +11,8 @@
 #include "Game.hpp"
 #include "Player.hpp"
 
-class Deck {
+class Deck
+{
 private:
         std::vector<Card> cards;         // 덱에 있는 카드들
 public:
