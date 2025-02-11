@@ -78,3 +78,20 @@ void Player::ReturnIndex(Card& topcard, std::vector<Card>& deathzone)
     std::cout << std::endl;
 }
 
+bool Player::isBothJoker()
+{
+    int size = hand.size();
+    int count = 0;
+    for (int idx = 0; idx < size; idx++)
+    {
+        Card selectedcard = hand[idx];
+        if (selectedcard.Card_Number == JOKER) count++;
+    }
+    if (count == 2) return true;
+    else return false;
+}
+
+bool Player::isZero()
+{
+    if (hand.size() == 0) return true;
+}

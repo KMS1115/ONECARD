@@ -26,7 +26,7 @@ public:
         void ReturnIndex(Card& topcard, std::vector<Card>& deathzone);                                        // 현재 패에서 오픈 카드와 비교해서 낼 수 있는 카드가 존재하는지 확인
         int getCardCount();                                        // 현재 패의 카드 개수 반환 -> 승리 조건 검사 시 사용
         bool isBothJoker();                                        // 컬러 조커와 흑백 조커 두개 다 있는지 확인 -> 승리 조건 검사 시 사용
-        bool isWinner();                                           // 패의 카드 개수가 0개인지 확인
+        bool isZero();                                           // 패의 카드 개수가 0개인지 확인
 };
 
 #endif //PLAYER_HPP
