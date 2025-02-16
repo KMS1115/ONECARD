@@ -6,9 +6,6 @@
 #define CARD_HPP
 
 #include "Enum.hpp"
-#include "Deck.hpp"
-#include "Game.hpp"
-#include "Player.hpp"
 
 class Card
 {
@@ -24,8 +21,10 @@ public:
       bool isSpecial();                                        // 특수 카드 여부 확인
       bool isRightCard(Card& topcard);                         // 낼 수 있는 카드인지 확인
       bool isChangeEmblem();                                   // 문양을 바꿀 수 있는 카드인지 확인
+      bool isAttackCard();                                     // 공격 카드인지 확인
       int ReturnAttackPower();                                 // 공격 카드인지 확인하고 공격 카드이면 몇 장 먹어야하는지 반환
       bool isDefend(Card& topcard);                            // 방어 가능 여부 확인
+      bool isExtraTurn();                                      // 추가 턴을 받을 수 있는 카드인지 확인
 };
 
 #endif //CARD_HPP

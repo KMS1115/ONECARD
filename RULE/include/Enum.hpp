@@ -7,6 +7,7 @@
 
 enum CARD_NUMBER
 {
+    ZERO,
     ACE,
     TWO,
     THREE,

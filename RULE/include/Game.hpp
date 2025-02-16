@@ -5,7 +5,6 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
-#include "Enum.hpp"
 #include "Deck.hpp"
 #include "Card.hpp"
 #include "Player.hpp"
@@ -13,6 +12,7 @@
 class Game
 {
 private:
+      int AccumulatedAttackPower;      // 누적된 공격 카드량
       int VictoryCondition;            // 승리 조건 -> 상대방 카드가 15장 이상이면 승리 or 상대방이 조커 두장 갖게 되는 상황
       int Turn;                        // 턴 수
       Deck deck;
@@ -35,6 +35,7 @@ public:
       bool isSpecialCard();            // 플레이어가 낸 카드가 특수 능력 카드인지를 검사
       void LogMove();                  // 플레이어의 카드 사용 기록을 남김
       bool isShuffleDeck();            // 게임 진행 중 덱을 섞어야 할 타이밍을 정함
+      void isUnderAttack();            // 플레이어가 공격 당했다고 알리고 방어 못할 시 카드를 먹음
 };
 
 #endif //GAME_HPP

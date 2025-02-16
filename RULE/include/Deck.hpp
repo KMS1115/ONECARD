@@ -6,10 +6,7 @@
 #define DECK_HPP
 
 #include <vector>
-#include "Enum.hpp"
 #include "Card.hpp"
-#include "Game.hpp"
-#include "Player.hpp"
 
 class Deck
 {

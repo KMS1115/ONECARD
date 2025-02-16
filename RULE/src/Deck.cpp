@@ -7,34 +7,53 @@
 #include <algorithm>
 #include <random>
 
+Deck::Deck() {}
+
 void Deck::InitialDeck()
 {
     cards.clear();
-    for (int emblem = SPADE; emblem = HEART; emblem++)
+    for (int emblem = SPADE; emblem <= HEART; emblem++)
     {
-        for (int number = ACE; number = JACK; number++)
+        for (int number = ACE; number <= JACK; number++)
         {
-            for (int color = BLACK; color = RED; color++)
+            int special = NONE;
+            int color = BLACK;
+
+            if (number == ACE || number == TWO) special = ATTACK;
+            else if (number == THREE) special = DEFEND;
+            else if (number == SEVEN) special = CHANGE;
+            else if (number == KING || number == JACK || number == QUEEN) special = AGAIN;
+
+            switch (emblem)
             {
-                if (emblem == SPADE && number == ACE) cards.push_back(Card(ATTACK, emblem, number, color));
-                else if (number == TWO) cards.push_back(Card(ATTACK, emblem, number, color));
-                else if (number == THREE) cards.push_back(Card(DEFEND, emblem, number, color));
-                else if (number == SEVEN) cards.push_back(Card(CHANGE, emblem, number, color));
-                else if (number == ACE) cards.push_back(Card(ATTACK, emblem, number, color));
-                else cards.push_back(Card(NONE, emblem, number, color));
+                case SPADE:
+                    color = BLACK;
+                    break;
+                case DIAMOND:
+                    color = RED;
+                    break;
+                case CLOVER:
+                    color = BLACK;
+                    break;
+                case HEART:
+                    color = RED;
+                    break;
             }
+            cards.push_back(Card(special, emblem, number, color));
         }
     }
     cards.push_back(Card(ATTACK, 0, JOKER, BLACK)); // 흑백 조커 생성
     cards.push_back(Card(ATTACK, 0, JOKER, RED)); // 컬러 조커 생성
+
+    std::cout << "총 카드 개수 : " << cards.size() << "장" << std::endl;
 }
 
 void Deck::ShuffleDeck()
 {
-    std::random_device random;
-    std::mt19937 g(random());
+    static std::mt19937 g(std::random_device{}());  // 전역적으로 유지
     std::shuffle(cards.begin(), cards.end(), g);
 }
+
 
 int Deck::getRemainingCards()
 {
@@ -46,14 +65,17 @@ bool Deck::isEmpty()
     return cards.empty();
 }
 
-void Deck::RefillDeck(std::vector<Card>& deathzone)
+void Deck::RefillDeck(std::vector<Card>& deathzone) // deathzone : 오픈 카드를 포함한 플레이어가 낸 카드들이 모인 곳
 {
+    if (deathzone.empty()) return; // 데스존이 비어있으면 실행 안함
+
     Card lastcard = deathzone.back();
     deathzone.pop_back();
 
     cards.insert(cards.end(), deathzone.begin(), deathzone.end());
-    deathzone.clear();
+    deathzone.erase(deathzone.begin(), deathzone.end());
     deathzone.push_back(lastcard);
+
     ShuffleDeck();
-    std::cout << "데스존에서 오픈카드 한 장 남기고 덱 셔플" << std::endl;
+    std::cout << "DEATH ZONE 카드들과 덱을 합쳐 셔플" << std::endl;
 }
