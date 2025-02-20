@@ -1,2 +1,0 @@
-/usr/bin/ar qc libRULE.a CMakeFiles/RULE.dir/src/Card.cpp.o CMakeFiles/RULE.dir/src/Deck.cpp.o CMakeFiles/RULE.dir/src/Game.cpp.o CMakeFiles/RULE.dir/src/Player.cpp.o
-/usr/bin/ranlib libRULE.a
