@@ -25,7 +25,13 @@ public:
 
     Game();
 
-    void InitialGame(int numplayers);                       // 게임 초기화(플레이어 생성, 카드 배분)
+    std::vector<Player>& getPlayers();
+    Deck& getDeck();
+    Card& getOpenCard();
+    int getCurrentPlayerIndex() const;
+    bool isGameOverStatus() const;
+
+    void InitialGame(std::string playernames);              // 게임 초기화(플레이어 생성, 카드 배분)
     void StartGame();                                       // 게임 시작
     void NextTurn();                                        // 턴 진행
     bool CheckWinCondition();                               // 승리 조건 체크

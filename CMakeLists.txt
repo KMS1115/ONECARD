@@ -1,20 +1,20 @@
 cmake_minimum_required(VERSION 3.30)
-project(GAME)
+project(ONECARD)
 
 set(CMAKE_CXX_STANDARD 20)
 
 add_subdirectory(RULE)
 
 
-add_executable(GAME
+add_executable(ONECARD
         src/main.cpp)
 
-target_include_directories(GAME
+target_include_directories(ONECARD
         PUBLIC
         include
 )
 
-target_link_libraries(GAME
+target_link_libraries(ONECARD
         PUBLIC
         RULE
 )

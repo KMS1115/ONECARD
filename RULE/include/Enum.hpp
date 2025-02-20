@@ -18,9 +18,9 @@ enum CARD_NUMBER
     EIGHT,
     NINE,
     TEN,
-    KING,
-    QUEEN,
     JACK,
+    QUEEN,
+    KING,
     JOKER
 };
 
@@ -43,6 +43,7 @@ enum SPECIAL
     GENERAL,
     ATTACK,
     DEFEND,
+    AGAIN,
     EMBLEM_CHANGE,
     TURN_JUMP,
     TURN_CHANGE

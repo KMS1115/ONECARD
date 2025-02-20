@@ -24,10 +24,18 @@ public:
     bool isSpecialCard();                   // 특수 카드인지 확인
     bool isAttackCard();                    // 공격 카드인지 확인
     bool isDefendCard();                    // 방어 카드인지 확인
+    bool isAgainCard();                     // 턴 추가하는 카드인지 확인
     bool isEmblemChangeCard();              // 문양 바꾸는 카드인지 확인
     bool isTurnJumpCard();                  // 턴 점프하는 카드인지 확인
     bool isTurnChangeCard();                // 턴 바꾸는 카드인지 확인
     int getAttackPower();                   // 공격 카드의 데미지를 반환
+
+    int getNumber() const;
+    int getEmblem() const;
+    int getColor() const;
+    int getSpecial() const;
+
+    std::string getNumberString() const;
 };
 
 #endif //CARD_HPP
