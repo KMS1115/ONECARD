@@ -23,28 +23,32 @@ void Player::DrawCard(std::vector<Card>& deck)
 }
 
 bool Player::PlayCard(int index, Card& topcard, std::vector<Card>& deathzone) {
-    if (index < 0 || index > hand.size())
-    {
-        std::cout << "잘못된 인덱스입니다!" << std::endl;
-        return false;
+    if (index < 0 || index >= hand.size()) return false;  // 유효한 인덱스 확인
+
+    Card selectedcard = hand[index];
+
+    // ✅ 공격을 받을 때 방어 카드가 제출되었는지 확인
+    if (topcard.isAttackCard() && selectedcard.isDefend(topcard)) {
+        std::cout << this->name << "가 방어 카드 [" << selectedcard.Card_Number << "] 를 사용하여 공격을 막았습니다!" << std::endl;
+
+        deathzone.push_back(topcard);  // 이전 오픈 카드를 버림
+        topcard = selectedcard;  // 오픈 카드 갱신
+        hand.erase(hand.begin() + index);  // 플레이어 패에서 제거
+
+        return true;  // 방어 성공
     }
 
-    Card selectedcard = hand[index - 1];
+    // ✅ 일반 카드 제출 처리 (기존 로직 유지)
+    if (!selectedcard.isRightCard(topcard)) {
+        return false;  // 올바른 카드가 아니라면 반환
+    }
 
-    if (selectedcard.isRightCard(topcard))
-    {
-        deathzone.push_back(topcard);
-        topcard = selectedcard;
-        hand.erase(hand.begin() + index - 1);
-        selectedcard.Display();
-        return true;
-    }
-    else
-    {
-        std::cout << "이 카드는 낼 수 없습니다" << std::endl;
-        return false;
-    }
+    deathzone.push_back(topcard);
+    topcard = selectedcard;  // 오픈 카드 변경
+    hand.erase(hand.begin() + index);  // 플레이어 패에서 제거
+    return true;
 }
+
 
 bool Player::CanMultipleCard(Card& topcard)
 {
@@ -103,6 +107,7 @@ void Player::ShowHand()
     int len = hand.size();
     for (int idx = 0; idx < len; idx++)
     {
+        std::cout << idx + 1 << "번 카드 : ";
         hand[idx].Display();
     }
 }

@@ -29,38 +29,92 @@ Game::Game(std::string name1, std::string name2)
 void Game::isUnderAttack()
 {
     AccumulatedAttackPower = 0;
-    if (topcard.isAttackCard())
+    if (topcard.isAttackCard())  // ✅ 현재 오픈 카드가 공격 카드인지 확인
     {
-        std::cout << currentplayer->name << " is Under Attack!" << std::endl;
+        std::cout << opponent->name << " is Under Attack!" << std::endl;
 
-        if (currentplayer->CanDefend(topcard))
+        std::vector<int> defendIndexes;  // ✅ 방어할 수 있는 카드의 인덱스를 저장할 벡터
+
+        for (int i = 0; i < opponent->hand.size(); i++)
         {
-            std::cout << currentplayer->name << " can defend! 공격을 막았습니다!" << std::endl;
-            return;
+            if (opponent->hand[i].isDefend(topcard))
+            {
+                defendIndexes.push_back(i);
+            }
         }
-        if (currentplayer->CanAttack(topcard))
+
+        if (!defendIndexes.empty())
         {
-            std::cout << "연속 공격할 수 있는 카드가 존재합니다" << std::endl;
-            AccumulatedAttackPower += topcard.ReturnAttackPower();
-            return;
+            std::cout << "방어할 수 있는 카드가 패에 존재합니다! 만약 방어하려면 1을 입력하세요" << std::endl;
+            int choice;
+            std::cin >> choice;
+
+            if (choice == 1)
+            {
+                std::cout << "방어 카드 목록 : " << std::endl;
+                for (int i = 0; i < defendIndexes.size(); i++)
+                {
+                    std::cout << i + 1 << "번 카드 : ";
+                    opponent->hand[defendIndexes[i]].Display();
+                }
+
+                int index;
+                std::cout << "낼 방어 카드의 인덱스를 입력하세요 : ";
+                std::cin >> index;
+
+                if (index >= 1 && index <= defendIndexes.size())
+                {
+                    int realIndex = defendIndexes[index - 1];  // ✅ 실제 인덱스로 변환
+                    Card selectedCard = opponent->hand[realIndex];
+
+                    if (selectedCard.isDefend(topcard))
+                    {
+                        std::cout << opponent->name << "가 방어 카드를 사용하여 공격을 막았습니다!" << std::endl;
+
+                        // ✅ 방어 카드 제출
+                        if (!opponent->PlayCard(realIndex, topcard, deathzone))
+                        {
+                            std::cout << "방어 카드 제출 실패! 다시 시도하세요." << std::endl;
+                            return;
+                        }
+
+                        // ✅ 방어 성공 후 topcard를 일반 카드로 변경
+                        topcard.special = NONE;
+                        return;  // ✅ 공격 차단
+                    }
+                }
+                std::cout << "잘못된 선택입니다. 방어할 수 없는 카드를 선택했습니다!" << std::endl;
+                return;  // ✅ 잘못된 입력 방지
+            }
         }
+
+        // ✅ 방어도 공격도 못하는 경우, 카드 드로우 실행
         AccumulatedAttackPower += topcard.ReturnAttackPower();
-        std::cout << currentplayer->name << " can not defend -> " << AccumulatedAttackPower << "Draw..." << std::endl;
-        if (deck.isEmpty())
-        {
+        std::cout << opponent->name << " can not defend -> "
+                  << AccumulatedAttackPower << " Draw..." << std::endl;
+
+        // 🔥 덱이 부족한 경우, 덱을 리필
+        if (deck.isEmpty()) {
             deck.RefillDeck(deathzone);
         }
+
+        // ✅ 공격량만큼 카드 드로우
         for (int idx = 0; idx < AccumulatedAttackPower; idx++)
         {
-            if (deck.isEmpty())
-            {
-                deck.RefillDeck(deathzone);
+            if (deck.isEmpty()) {
+                std::cout << "덱에 남은 카드가 부족하여 더 이상 드로우할 수 없습니다!" << std::endl;
+                break;  // ✅ 덱이 완전히 소진되면 중단
             }
-            currentplayer->DrawCard(deck.cards);
+            opponent->DrawCard(deck.cards);  // ✅ 상대방(opponent)이 카드를 뽑도록 변경
         }
+
+        // ✅ 공격 후 턴 자동 변경
         AccumulatedAttackPower = 0;
+        topcard.special = NONE;  // ✅ 공격이 끝나면 topcard를 일반 카드로 변경
+        NextTurn();  // ✅ 공격을 막지 못하면 턴을 넘김!
     }
 }
+
 
 void Game::StartGame()
 {
@@ -131,7 +185,8 @@ void Game::Play()
 
         isFirstTurn = false;
 
-        if (currentplayer->CanMultipleCard(topcard)) {
+        if (currentplayer->CanMultipleCard(topcard))
+        {
             currentplayer->PlayMultipleCards(topcard, deathzone);
         }
 
@@ -139,8 +194,13 @@ void Game::Play()
         {
             break;
         }
-        NextTurn();
+        if (!topcard.isAttackCard())
+        {
+            NextTurn();
+        }
+
         isUnderAttack();
+
     }
     if (CheckWinCondition())
     {

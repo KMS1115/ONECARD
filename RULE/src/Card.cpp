@@ -128,14 +128,12 @@ bool Card::isExtraTurn()
 {
     if (this->special == AGAIN)
     {
-        switch (this->Card_Number)
-        {
+        switch (this->Card_Number) {
             case KING:
             case QUEEN:
             case JACK:
                 return true;
-            default:
-                return false;
         }
     }
+    return false;
 }

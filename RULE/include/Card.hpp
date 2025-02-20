@@ -16,7 +16,6 @@ public:
       int Card_Color;                                          // 카드 색깔
       Card();
       Card(int special, int emblem, int number, int color);    // 생성자
-
       void Display();                                          // 카드 정보 출력
       bool isSpecial();                                        // 특수 카드 여부 확인
       bool isRightCard(Card& topcard);                         // 낼 수 있는 카드인지 확인
