@@ -5,30 +5,32 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
-#include "Deck.hpp"
-#include "Card.hpp"
 #include <string>
-
+#include <sstream>
+#include "Deck.hpp"
 
 class Player
 {
+private:
+    std::string name;                               // 플레이어 이름
+    std::vector<Card> hand;                         // 플레이어 패
+    bool IsEliminated;                              // 탈락 여부
+    int JokerCount;                                 // 플레이어가 가진 조커 개수
 public:
-        std::string name;                                                       // 플레이어 이름
-        std::vector<Card> hand;                                                 // 플레이어가 가진 카드 목록
-        bool isTurn;                                                            // 현재 플레이어 턴 여부
-        Player();
-        Player(std::string pname);                                              // 생성자(이름 설정)
-        void DrawCard(std::vector<Card>& deck);                                 // 덱에서 카드를 한 장 가져와 플레이어 패에 추가
-        bool PlayCard(int index, Card& topcard, std::vector<Card>& deathzone);  // 현재 패에서 특정 카드를 선택하여 버림 -> 카드를 내면 패에서 제거, 오픈 카드로 보냄
-        void ShowHand();                                                        // 플레이어의 패를 출력
-        void ReturnIndex(Card& topcard, std::vector<Card>& deathzone);          // 현재 패에서 오픈 카드와 비교해서 낼 수 있는 카드가 존재하는지 확인
-        int getCardCount();                                                     // 현재 패의 카드 개수 반환 -> 승리 조건 검사 시 사용
-        bool isBothJoker();                                                     // 컬러 조커와 흑백 조커 두개 다 있는지 확인 -> 승리 조건 검사 시 사용
-        bool isZero();                                                          // 패의 카드 개수가 0개인지 확인
-        bool CanDefend(Card& topcard);                                          // 공격을 방어할 수 있는 상황인지 파악
-        bool CanAttack(Card& topcard);                                          // 공격 받는 상황에서 자신이 낼 수 있는 공격 카드가 있는지 확인
-        bool CanMultipleCard(Card& topcard);                                    // 패에 같은 숫자의 카드가 2장 이상 있는 경우, true 반환
-        void PlayMultipleCards(Card& topcard, std::vector<Card>& deathzone);    // 패에 같은 숫자의 카드가 2장 이상 있는 경우, 원하는 만큼 낼 수 있게함
+
+    Player();
+    Player(std::string names);
+
+    void DrawCard(std::vector<Card>& deck);         // 덱에서 카드를 한 장 뽑아 플레이어 패에 추가
+    void ShowHand();                                // 플레이어의 패를 출력
+    int getCardCount();                             // 현재 패의 카드 개수 반환
+    bool canDropCard(Card& openCard);               // 낼 수 있는 카드가 있는지 확인
+    Card DropCard(int cardindex);                   // 특정 인덱스 카드를 제출
+    void TakePenalty(int count, Deck& deck);        // 공격을 받아 막지 못한 경우 카드를 패에 추가
+    bool HasDefendCard();                        // 패에 방어 카드가 존재하는지 반환
+    bool HasSpecialCard();                          // 특수 카드 보유 여부(Jack, Queen, King 등)
+    void SetEliminated(bool status);                // 탈락 상태 변경
+    bool isEliminated();                            // 탈락 여부 반환
 };
 
 #endif //PLAYER_HPP

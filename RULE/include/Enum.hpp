@@ -40,11 +40,12 @@ enum CARD_COLOR
 
 enum SPECIAL
 {
-    NONE,
+    GENERAL,
     ATTACK,
     DEFEND,
-    CHANGE,
-    AGAIN,
+    EMBLEM_CHANGE,
+    TURN_JUMP,
+    TURN_CHANGE
 };
 
 #endif //ENUM_HPP

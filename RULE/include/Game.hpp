@@ -5,37 +5,33 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
-#include "Deck.hpp"
-#include "Card.hpp"
 #include "Player.hpp"
 
 class Game
 {
 private:
-      int AccumulatedAttackPower;      // 누적된 공격 카드량
-      int VictoryCondition;            // 승리 조건 -> 상대방 카드가 15장 이상이면 승리 or 상대방이 조커 두장 갖게 되는 상황
-      int Turn;                        // 턴 수
-      Deck deck;
-      Player* currentplayer;           // 현재 플레이어가 누군지 알려줌
-      Player* opponent;                // 상대 플레이어
-      Card topcard;                    // 오픈 카드(제일 중요한 변수)
-      std::vector<Card> deathzone;
-      Player player1;
-      Player player2;
+    Card opencard;                                          // 오픈 카드
+    std::vector<Card> deathzone;                            // 데스존(오픈 카드를 포함하는 플레이어가 버린 카드들의 배열)
+    Deck deck;                                              // 덱
+    std::vector<Player> players;                            // 게임에 참여하는 플레이어 목록
+
+    int CurrentPlayerIndex;                                 // 현재 턴인 플레이어 추적하는 인덱스
+    int VictoryCardCount;                                   // 승리 조건 : 상대방 카드가 x장 이상이면 승리
+    int Turn;                                               // 턴 수
+    bool isGameOver;                                        // 게임 종료 여부 추가
+    bool ReverseTurn;                                       // true면 턴 순서를 반대로 진행
+
 public:
-      Game();
-      Game(std::string name1, std::string name2);
-      void StartGame();                // 게임 시작(플레이어에게 카드 나눠주고 만약 한 사람에게 조커 두 장이면 다시 나눠주기)
-      void OpenCard();                 // 플레이어에게 나눠준 후 오픈 카드 한 장을 랜덤으로 오픈
-      bool CheckWinCondition();        // 승리 조건을 만족하는지 검사하는 함수(항상 돌고 있어야 함 -> 쓰레드 파는 것도 괜찮아 보임)
-      void FinishGame();               // 승리 조건에 맞으면 게임 종료 -> 승자 출력
-      void Play();                     // 조건에 맞는 카드를 내기 -> 같은 숫자인 경우, 여러 개의 카드를 내기 or 같은 문양인 경우, 한 장의 카드 가능
-      void NextTurn();                 // 플레이어가 오픈 카드에서 카드를 한 장 먹었거나, 유효한 카드를 냈을 경우 턴을 넘김
-      bool isValidCard();              // 플레이어가 낸 카드가 유효한 카드인지를 검사
-      bool isSpecialCard();            // 플레이어가 낸 카드가 특수 능력 카드인지를 검사
-      void LogMove();                  // 플레이어의 카드 사용 기록을 남김
-      bool isShuffleDeck();            // 게임 진행 중 덱을 섞어야 할 타이밍을 정함
-      void isUnderAttack();            // 플레이어가 공격 당했다고 알리고 방어 못할 시 카드를 먹음
+
+    Game();
+
+    void InitialGame(int numplayers);                       // 게임 초기화(플레이어 생성, 카드 배분)
+    void StartGame();                                       // 게임 시작
+    void NextTurn();                                        // 턴 진행
+    bool CheckWinCondition();                               // 승리 조건 체크
+    bool CheckElimination(Player &player);                  // 플레이어 탈락 체크
+    void HandleCardEffect(Player &player, Card playcard);   // 특수 카드 효과 처리
+    void DisplayGameState();                                // 현재 게임 상태 출력
 };
 
 #endif //GAME_HPP
