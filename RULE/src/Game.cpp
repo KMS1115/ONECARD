@@ -158,6 +158,7 @@ bool Game::CheckElimination(Player& player)
 void Game::HandleCardEffect(Player& player, Card playcard)
 {
     static int accumulatedAttack = 0;
+    int jumpCount = 1;
 
     if (playcard.getSpecial() == ATTACK)
     {
@@ -213,7 +214,16 @@ void Game::HandleCardEffect(Player& player, Card playcard)
         switch (playcard.getSpecial())
         {
             case TURN_JUMP:
-                CurrentPlayerIndex = (CurrentPlayerIndex + (ReverseTurn ? -2 : 2) + players.size()) % players.size();
+                if (ReverseTurn)
+                {
+                    CurrentPlayerIndex = CurrentPlayerIndex - 1;
+                    if (CurrentPlayerIndex < 0)
+                    {
+                        CurrentPlayerIndex = CurrentPlayerIndex + players.size();
+                    }
+                }
+
+                CurrentPlayerIndex = CurrentPlayerIndex + 1;
                 std::cout << players[CurrentPlayerIndex].getName() << "의 턴이 건너뛰어졌습니다!\n";
                 break;
             case TURN_CHANGE:
@@ -223,7 +233,7 @@ void Game::HandleCardEffect(Player& player, Card playcard)
                 break;
             case AGAIN:
                 std::cout << player.getName() << "의 턴이 한 번 더 진행됩니다!\n";
-                break;
+                return;
             case EMBLEM_CHANGE:
                 int newEmblem;
                 std::cout << "문양 변경 카드가 사용되었습니다! 새로운 문양을 선택하세요 (0:♠, 1:♦, 2:♣, 3:♥): ";
