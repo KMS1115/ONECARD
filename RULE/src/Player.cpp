@@ -32,15 +32,20 @@ void Player::DrawCard(Deck& deck, std::vector<Card>& deathzone)
     hand.push_back(deck.drawCard());
 }
 
-void Player::ShowHand()
+void Player::ShowHand(bool showIndex)
 {
     std::cout << name << "의 패: \n";
-    for (auto& card : hand)
+    for (size_t i = 0; i < hand.size(); i++)
     {
-        card.DisplayCard();
+        if (showIndex)
+        {
+            std::cout << (i + 1) << ". ";
+        }
+        hand[i].DisplayCard();
     }
     std::cout << std::endl;
 }
+
 
 int Player::getCardCount()
 {

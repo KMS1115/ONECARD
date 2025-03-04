@@ -22,7 +22,7 @@ public:
     Player(std::string name);
 
     void DrawCard(Deck& deck, std::vector<Card>& deathzone);                // 덱에서 카드를 한 장 뽑아 플레이어 패에 추가
-    void ShowHand();                                                        // 플레이어의 패를 출력
+    void ShowHand(bool showIndex);                                          // 플레이어의 패를 출력
     int getCardCount();                                                     // 현재 패의 카드 개수 반환
     bool canDropCard(Card& openCard);                                       // 낼 수 있는 카드가 있는지 확인
     Card DropCard(int cardindex);                                           // 특정 인덱스 카드를 제출
